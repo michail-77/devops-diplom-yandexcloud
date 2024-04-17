@@ -10,3 +10,5 @@
 personal.auto.tfvars
 
 meta.*
+
+instruction.*
