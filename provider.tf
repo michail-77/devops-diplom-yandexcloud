@@ -14,4 +14,5 @@ provider "yandex" {
   cloud_id  = "${var.cloud_id}"
   folder_id = "${var.folder_id}"
   zone      = "ru-central1-a" # Или другая зона по вашему выбору
+  service_account_id = 
 }

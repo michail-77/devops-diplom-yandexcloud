@@ -4,7 +4,7 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
   zone         = var.zone
   network_id   = yandex_vpc_network.network.id
   subnet_ids   = [yandex_vpc_subnet.subnet.id]
-  service_account_id = "your_service_account_id"
+  service_account_id = var.service_account_id
 
   master {
     zonal_master {
