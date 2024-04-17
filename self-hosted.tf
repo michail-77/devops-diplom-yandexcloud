@@ -1,0 +1,22 @@
+resource "yandex_kubernetes_cluster" "self_hosted_cluster" {
+  name         = "my-self-hosted-k8s"
+  folder_id    = var.folder_id
+  zone         = var.zone
+  network_id   = yandex_vpc_network.network.id
+  subnet_ids   = [yandex_vpc_subnet.subnet.id]
+  service_account_id = "your_service_account_id"
+
+  master {
+    version = "1.22"
+  }
+
+  node_pool {
+    name = "default-pool"
+    version = "1.22"
+    machine_type = "e2-medium"
+    initial_node_count = 1
+    auto_upgrade = true
+    auto_repair = true
+    preemptible = true
+  }
+}
