@@ -29,7 +29,7 @@ data "yandex_storage_bucket_policy" "policy" {
 #  backend "s3" {
 #    bucket         = yandex_storage_bucket.terraform_backend_bucket.name
 #    key            = "terraform.tfstate"
-#    region         = "your_region"
+#    region         = "ru-central1"
 #    endpoint       = "storage.yandexcloud.net"
 #    skip_region_validation = true
 #    skip_credentials_validation = true

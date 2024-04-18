@@ -21,3 +21,9 @@ output "service_account_id" {
 output "service_account_email" {
   value = yandex_iam_service_account.service_account.email
 }
+
+
+resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
+ service_account_id = var.service_account_id
+ description        = "sa-static-key"
+} v 
