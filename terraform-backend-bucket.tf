@@ -2,7 +2,7 @@
 
 terraform {
   backend "s3" {
-    endpoint = {
+    endpoints = {
       s3 = "https://storage.yandexcloud.net"
     }
     bucket         = "terraform-backend-bucket"
