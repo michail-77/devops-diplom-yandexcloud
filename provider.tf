@@ -16,3 +16,5 @@ provider "yandex" {
   zone      = "ru-central1-a" # Или другая зона по вашему выбору
   service_account_id = var.service_account_id
 }
+
+service_account_key_file = file("key.json")
