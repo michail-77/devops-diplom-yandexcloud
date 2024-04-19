@@ -16,7 +16,7 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
     name = "default-pool"
     version = "1.22"
     machine_type = "e2-small"
-    initial_node_count = 1
+    initial_node_count = 3
     auto_upgrade = true
     auto_repair = true
     preemptible = true
