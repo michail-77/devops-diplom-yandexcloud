@@ -34,9 +34,9 @@ resource "yandex_iam_service_account_static_access_key" "bucket-static_access_ke
   description        = "Static access key for Terraform Backend Bucket"
 }
 
-# Создаем ключи для сервисного аккаунта (для доступа к объектному хранилищу)
-resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
-  service_account_id = yandex_iam_service_account.bucket-sa.id
-  description        = "static access key for object storage"
-}
+## Создаем ключи для сервисного аккаунта (для доступа к объектному хранилищу)
+#resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
+#  service_account_id = yandex_iam_service_account.bucket-sa.id
+#  description        = "static access key for object storage"
+#}
 
