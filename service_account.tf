@@ -40,3 +40,7 @@ resource "yandex_iam_service_account_static_access_key" "bucket-static_access_ke
 #  description        = "static access key for object storage"
 #}
 
+resource "yandex_iam_service_account_key" "sa-auth-key" {
+  service_account_id = "some_sa_id"
+  description        = "key for service account"
+}
