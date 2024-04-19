@@ -22,3 +22,4 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
     preemptible = true
   }
 }
+
