@@ -1,4 +1,17 @@
 
+variable "token" {
+  type = string
+}
+
+variable "cloud_id" {
+  type = string
+}
+
+variable "folder_id" {
+  type = string
+}
+
+
 # Заменить на ID своего образа
 # ID можно узнать с помощью команды yc compute image list
 variable "ubuntu-2004-lts" {
