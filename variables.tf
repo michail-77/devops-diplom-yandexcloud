@@ -15,10 +15,10 @@ variable "service_account_id" {
   type = string
 }
 
-variable "db_password" {
-  type        = string
-  sensitive   = true
-}
+# variable "db_password" {
+#   type        = string
+#   sensitive   = true
+# }
 
 variable "access_key" {
   type        = string
