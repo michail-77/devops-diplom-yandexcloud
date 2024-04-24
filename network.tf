@@ -7,7 +7,7 @@ resource "yandex_vpc_network" "network" {
 resource "yandex_vpc_subnet" "subnet" {
   name           = "my-subnet"
   folder_id      = var.folder_id
-  zone           = var.zone
+  zone           = yandex_vpc_subnet.subnet_zone_a.id
   network_id     = yandex_vpc_network.network.id
   v4_cidr_blocks = ["10.10.20.0/24"]
 }
