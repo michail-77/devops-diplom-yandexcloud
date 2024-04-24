@@ -1,7 +1,7 @@
 resource "yandex_kubernetes_cluster" "k8s_cluster" {
   name         = "my-k8s-cluster"
   folder_id    = var.folder_id
-#  zone         = yandex_vpc_subnet.subnet_zone_a.id
+  zone         = var.zone
   network_id   = yandex_vpc_network.network.id
   subnet_ids   = [yandex_vpc_subnet.subnet.id]
   service_account_id = var.service_account_id
