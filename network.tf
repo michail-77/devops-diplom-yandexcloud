@@ -20,23 +20,35 @@ resource "yandex_vpc_network" "my_vpc_network" {
 }
 
 # Создание подсетей в разных зонах доступности
-resource "yandex_vpc_subnet" "subnet_zone_a" {
-  name           = "subnet-zone-a"
-  network_id     = yandex_vpc_network.my_vpc_network.id
-  zone           = "ru-central1-a"
-  v4_cidr_blocks = ["10.10.1.0/24"]
+# resource "yandex_vpc_subnet" "subnet_zone_a" {
+#   name           = "subnet-zone-a"
+#   network_id     = yandex_vpc_network.my_vpc_network.id
+#   zone           = "ru-central1-a"
+#   v4_cidr_blocks = ["10.10.1.0/24"]
+# }
+
+# resource "yandex_vpc_subnet" "subnet_zone_b" {
+#   name           = "subnet-zone-b"
+#   network_id     = yandex_vpc_network.my_vpc_network.id
+#   zone           = "ru-central1-b"
+#   v4_cidr_blocks = ["10.10.2.0/24"]
+# }
+
+# resource "yandex_vpc_subnet" "subnet_zone_c" {
+#   name           = "subnet-zone-d"
+#   network_id     = yandex_vpc_network.my_vpc_network.id
+#   zone           = "ru-central1-d"
+#   v4_cidr_blocks = ["10.10.3.0/24"]
+# }
+
+variable "subnet-zones" {
+ type    = list(string)
+ default = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
 }
 
-resource "yandex_vpc_subnet" "subnet_zone_b" {
-  name           = "subnet-zone-b"
-  network_id     = yandex_vpc_network.my_vpc_network.id
-  zone           = "ru-central1-b"
-  v4_cidr_blocks = ["10.10.2.0/24"]
-}
-
-resource "yandex_vpc_subnet" "subnet_zone_c" {
-  name           = "subnet-zone-c"
-  network_id     = yandex_vpc_network.my_vpc_network.id
-  zone           = "ru-central1-c"
-  v4_cidr_blocks = ["10.10.3.0/24"]
+variable "cidr" {
+ type    = map(list(string))
+ default = {
+   stage = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]    
+ }
 }
