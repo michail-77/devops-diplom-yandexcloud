@@ -1,29 +1,8 @@
-# resource "yandex_vpc_network" "yc-network" {
-#   name        = "yc-network"
-#   description = "My first network"
-# }
-
-
-# resource "yandex_vpc_network" "network" {
-#   name        = "my-network"
-#   description = "My Virtual Network"
-#   folder_id   = var.folder_id
-# }
-
-# resource "yandex_vpc_subnet" "subnet" {
-#   name           = "my-subnet"
-#   folder_id      = var.folder_id
-#   zone           = yandex_vpc_subnet.subnet_zone_a.id
-#   network_id     = yandex_vpc_network.network.id
-#   v4_cidr_blocks = ["10.10.20.0/24"]
-# }
-
-
 # Создание виртуальной частной сети (VPC)
 resource "yandex_vpc_network" "my_vpc_network" {
+  folder_id     = var.folder_id
   name          = "my-vpc-network"
   description   = "VPC network for my infrastructure"
-  folder_id     = var.folder_id
 }
 
 # Создание подсетей в разных зонах доступности
