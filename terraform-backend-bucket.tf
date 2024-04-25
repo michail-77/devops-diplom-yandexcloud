@@ -6,8 +6,7 @@ terraform {
     bucket         = "terraform-bucket"
     key            = "terraform.tfstate"
     region         = "ru-central1"
-    access_key     = yandex_iam_service_account_static_access_key.sa-static-key.access_key
-    secret_key     = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+    
     # shared_credentials_file = "authorized_key.json"
     skip_region_validation = true
     skip_credentials_validation = true
