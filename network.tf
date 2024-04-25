@@ -1,5 +1,5 @@
-resource "yandex_vpc_network" "default" {
-  name        = "my-yc-network"
+resource "yandex_vpc_network" "yc-network" {
+  name        = "yc-network"
   description = "My first network"
 }
 

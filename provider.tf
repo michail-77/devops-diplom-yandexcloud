@@ -12,8 +12,10 @@ provider "yandex" {
   # Укажите вашу авторизационную информацию
   service_account_key_file = "authorized_key.json"
   # token     = var.token
+  # access_key     = "YCAJE2-FWDGRHsZXgTxTa-LAL"
+  # secret_key     = "YCPFrY7xRcRkw7DqW69nOnaljkk4Tr7_wobLP0Wo"
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
-  zone      = "ru-central1-a"       # Или другая зона по вашему выбору
+  zone      = var.yc-zone       # Или другая зона по вашему выбору
 }
 

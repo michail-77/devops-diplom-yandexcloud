@@ -9,6 +9,11 @@ variable "cloud_id" {
 
 variable "folder_id" {
   type = string
+  description = "Идентификатор папки, в которую будет назначен участник IAM"
+}
+
+variable "yc-zone" {
+  default = "ru-central1"
 }
 
 variable "service_account_id" {
