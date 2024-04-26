@@ -32,4 +32,7 @@ https://yandex.cloud/ru/docs/ydb/terraform/credentials
 
 https://ydb.tech/docs/ru/devops/ansible/preparing-vms-with-terraform#yc-cluster
 
-
+"инструкция по запросу OAuth-токена":
+https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
+"Запрос OAuth-токена":
+https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
