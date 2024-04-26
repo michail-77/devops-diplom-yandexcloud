@@ -37,18 +37,14 @@ terraform {
  }
 }
 
-resource "yandex_storage_bucket_object" "example_object" {
-  # Используйте переменную bucket здесь, если это необходимо
-  bucket = yandex_storage_bucket.terraform_backend_bucket.name
+# resource "yandex_storage_bucket_object" "example_object" {
+#   # Используйте переменную bucket здесь, если это необходимо
+#   bucket = yandex_storage_bucket.terraform_backend_bucket.name
 
-  # Другие аргументы объекта...
-}
-
-provider "yandex" {
-  # Укажите свои учетные данные или используйте другие методы аутентификации
-}
+#   # Другие аргументы объекта...
+# }
 
 resource "yandex_iam_service_account_key" "storage_key" {
-  service_account_id = "your_service_account_id_here"  # Укажите идентификатор сервисного аккаунта
+  service_account_id = var.service_account_id # Укажите идентификатор сервисного аккаунта
   description        = "Storage key for accessing Yandex.Cloud Object Storage"  # Описание ключа, по желанию
 }

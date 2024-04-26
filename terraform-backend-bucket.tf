@@ -7,7 +7,7 @@ terraform {
     key            = "terraform.tfstate"
     region         = "ru-central1"
     
-    # shared_credentials_file = "authorized_key.json"
+    shared_credentials_file = "credentials-file"
     skip_region_validation = true
     skip_credentials_validation = true
   }
@@ -25,6 +25,6 @@ resource "yandex_kms_symmetric_key_iam_binding" "viewer" {
   symmetric_key_id = yandex_kms_symmetric_key.kms-key.id
   role             = "viewer"
   members = [
-    "serviceAccount:${yandex_iam_service_account.sa.id}",
+    "serviceAccount:${yandex_iam_service_account.service_account.id}",
   ]
 }
