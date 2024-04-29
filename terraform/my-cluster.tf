@@ -44,17 +44,17 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
 
 resource "yandex_iam_service_account" "sa" {
  name        = "service-account"
- description = "<описание_сервисного_аккаунта>"
+ description = "service-account"
 }
 
-data "yandex_resourcemanager_folder" "department1" {
-  folder_id = "some_folder_id"
-} 
+# data "yandex_resourcemanager_folder" "department1" {
+#   folder_id = var.folder_id
+# } 
 
 resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
  # Сервисному аккаунту назначается роль "editor".
  folder_id = var.folder_id
- role      = "editor"
+ role      = "storage.editor"
  member    = "serviceAccount:${yandex_iam_service_account.sa.id}"
 }
 

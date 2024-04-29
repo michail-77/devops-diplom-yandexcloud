@@ -20,12 +20,12 @@ variable "service_account_id" {
   type = string
 }
 
-variable "access_key" {
+variable "yc_access_key" {
   type        = string
   sensitive   = true
 }
 
-variable "secret_key" {
+variable "yc_secret_key" {
   type        = string
   sensitive   = true
 }
@@ -35,4 +35,6 @@ variable "secret_key" {
 variable "ubuntu-2004-lts" {
   default = "fd852pbtueis1q0pbt4o"
 }
+
+variable "service_account_key_file" {}
 

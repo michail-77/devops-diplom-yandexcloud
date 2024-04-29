@@ -6,7 +6,7 @@ terraform {
     bucket         = "terraform-bucket"
     key            = "terraform.tfstate"
     region         = "ru-central1"
-    # shared_credentials_file = "credentials-file"
+    shared_credentials_file = "personal.auto.tfvars"
     skip_region_validation = true
     skip_credentials_validation = true
   }
