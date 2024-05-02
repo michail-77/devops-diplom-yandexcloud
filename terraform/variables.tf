@@ -20,15 +20,15 @@ variable "service_account_id" {
   type = string
 }
 
-variable "yc_access_key" {
-  type        = string
-  sensitive   = true
-}
+# variable "yc_access_key" {
+#   type        = string
+#   sensitive   = true
+# }
 
-variable "yc_secret_key" {
-  type        = string
-  sensitive   = true
-}
+# variable "yc_secret_key" {
+#   type        = string
+#   sensitive   = true
+# }
 
 # Заменить на ID своего образа
 # ID можно узнать с помощью команды yc compute image list

@@ -49,6 +49,16 @@
 #   description        = "Storage key for accessing Yandex.Cloud Object Storage"  # Описание ключа, по желанию
 # }
 
+resource "yandex_storage_bucket" "terraform-bucket" {
+  name = "terraform-bucket"
+  location = "ru-central1"
+
+  access_policy {
+    roles = ["storage.objectsAdmin"]
+    members = ["serviceAccount:your-service-account@your-domain.iam.gserviceaccount.com"]
+  }
+}
+
 terraform {
   required_version = ">= 1.5.0"
   backend "s3" {
@@ -59,9 +69,10 @@ terraform {
     endpoint       = "storage.yandexcloud.net"
     # access_key     = var.yc_access_key
     # secret_key     = var.yc_secret_key
-    yc_access_key="YCAJEeezftGa7PZZHVXXuhN-l"
-    yc_secret_key="YCPJ9i8UuiA2gePRot1lG8srwWcRrtnLeVGte_hE"
+    # yc_access_key="YCAJEeezftGa7PZZHVXXuhN-l"
+    # yc_secret_key="YCPJ9i8UuiA2gePRot1lG8srwWcRrtnLeVGte_hE"
     skip_region_validation = true
     skip_credentials_validation = true
   }
 }
+

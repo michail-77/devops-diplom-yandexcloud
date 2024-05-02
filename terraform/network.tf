@@ -20,7 +20,7 @@ resource "yandex_vpc_subnet" "subnet_zone_b" {
   v4_cidr_blocks = ["10.10.2.0/24"]
 }
 
-resource "yandex_vpc_subnet" "subnet_zone_c" {
+resource "yandex_vpc_subnet" "subnet_zone_d" {
   name           = "subnet-zone-d"
   network_id     = yandex_vpc_network.my_vpc_network.id
   zone           = "ru-central1-d"
