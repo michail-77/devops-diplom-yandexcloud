@@ -1,0 +1,54 @@
+# yc storage bucket create \
+#   --name "yc-state" \
+#   --default-storage-class standard \
+#   --max-size 10000000 \
+#   # --public-read \
+#   # --public-list \
+#   # --public-config-read
+
+# # Создание ведра Object Storage
+# resource "yandex_storage_bucket" "yc_state" {
+#   name      = "yc-state"
+#   folder_id = var.folder_id
+#   max_size  = 10000000
+# }
+
+# # Создание серверного экземпляра базы данных в YDB
+# resource "yandex_database_database" "terraform_state_lock" {
+#   name      = "terraform-state-lock"
+#   folder_id = var.folder_id
+#   serverless {
+#     # Укажите необходимые параметры для серверного экземпляра базы данных
+#   }
+# }
+
+# # Создание сервисного аккаунта
+# resource "yandex_iam_service_account" "yc_sa_remote" {
+#   name        = "yc-sa-remote"
+#   description = "SA to manage terraform state"
+# }
+
+# # Добавление привязок доступа к папке для сервисного аккаунта
+# resource "yandex_resource_manager_folder_access_binding" "storage_editor" {
+#   folder_id = var.folder_id
+#   role      = "storage.editor"
+#   subject {
+#     type  = "serviceAccount"
+#     id    = yandex_iam_service_account.hexlet_remote.id
+#   }
+# }
+
+# resource "yandex_resource_manager_folder_access_binding" "ydb_editor" {
+#   folder_id = var.folder_id
+#   role      = "ydb.editor"
+#   subject {
+#     type  = "serviceAccount"
+#     id    = yandex_iam_service_account.yc_sa_remote.id
+#   }
+# }
+
+# # Создание ключа доступа для сервисного аккаунта
+# resource "yandex_iam_access_key" "terraform_s3_backend_access_key" {
+#   service_account_id = yandex_iam_service_account.yc_sa_remote.id
+#   description        = "terraform s3 backend access key"
+# }

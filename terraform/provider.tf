@@ -5,8 +5,9 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">=0.13"
+    required_version = ">=0.13"
 }
+
 
 provider "yandex" {
   # Укажите вашу авторизационную информацию
@@ -14,8 +15,5 @@ provider "yandex" {
   # token     = var.token
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
-  zone      = var.yc-zone     # Или другая зона по вашему выбору
-  # access_key     = var.yc_access_key
-  # secret_key     = var.yc_secret_key
+  zone      = var.zones[0]
 }
-

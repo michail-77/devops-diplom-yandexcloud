@@ -6,7 +6,8 @@ terraform {
     bucket         = "terraform-bucket"
     key            = "terraform.tfstate"
     region         = "ru-central1"
-    shared_credentials_file = "personal.auto.tfvars"
+    profile        = "my-aws-profile"
+    # shared_credentials_file = "personal.auto.tfvars"
     skip_region_validation = true
     skip_credentials_validation = true
   }
@@ -19,11 +20,3 @@ resource "yandex_kms_symmetric_key" "kms-key" {
   default_algorithm = "AES_128"
   rotation_period   = "8760h" # 1 год.
 }
-
-# resource "yandex_kms_symmetric_key_iam_binding" "viewer" {
-#   symmetric_key_id = yandex_kms_symmetric_key.kms-key.id
-#   role             = "viewer"
-#   members = [
-#     "serviceAccount:${yandex_iam_service_account.service_account.id}",
-#   ]
-# }
