@@ -54,11 +54,11 @@
 1. Создаем сервисный аккаунт в [yandex cloud] (https://yandex.cloud/ru/docs/iam/operations/sa/create) согласно инструкции и назначаем ему роли.  
 2. Подготавливаем конфигурацию [Terraform](https://github.com/michail-77/my-diplom-lokhmanov/tree/main/01_terraform)  
 3. Выполняем команду terraform apply и у нас без дополнительных ручных действий разворачивается инфраструктура в яндекс облаке.  
-   ![1]()  
-   ![1]()  
-   ![1]()  
-   ![1]()  
-   ![1]()  
+   ![1](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/1_вирт_машины.png)  
+   ![2](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/2_сети.png)  
+   ![3](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/3_подсети_yc.png)  
+   ![4](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/4_сервис_аккаунт.png)  
+   ![5](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/5_бакет.png)  
 
 ---
 ### Создание Kubernetes кластера
