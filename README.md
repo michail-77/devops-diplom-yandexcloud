@@ -51,9 +51,167 @@
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.
 
 ### Решение:  
-1. Создаем сервисный аккаунт в [yandex cloud] (https://yandex.cloud/ru/docs/iam/operations/sa/create) согласно инструкции и назначаем ему роли.  
-2. Подготавливаем конфигурацию [Terraform](https://github.com/michail-77/my-diplom-lokhmanov/tree/main/01_terraform)  
-3. Выполняем команду terraform apply и у нас без дополнительных ручных действий разворачивается инфраструктура в яндекс облаке.  
+1. Создаем сервисный аккаунт в [yandex cloud] (https://yandex.cloud/ru/docs/iam/operations/sa/create) согласно инструкции и назначаем ему роли.
+```
+   $ yc iam service-account list
++----------------------+-----------+
+|          ID          |   NAME    |
++----------------------+-----------+
+| ajec47hqj2hk2peqj980 | admin     |
+| ajeetedg476jfgrmn6mn | editor    |
+| ajeupl64gvqlbfab689f | bucket-sa |
++----------------------+-----------+
+```
+   ![6](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/6_service%20account.png)
+   Создаем service-accoun-key и authorized_key.json
+```
+$ yc config list
+service-account-key:
+  id: ajeh5j1gqvn0qhd459q5
+  service_account_id: ajeetedg476jfgrmn6mn
+  created_at: "2024-05-02T15:33:45.556389551Z"
+  key_algorithm: RSA_2048
+  public_key: |
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAA...
+    -----END PUBLIC KEY-----
+  private_key: |
+    PLEASE DO NOT REMOVE THIS LINE! Yandex.Cloud SA Key ID <ajeh5j1...qhd459q5>
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQ...
+    -----END PRIVATE KEY-----
+cloud-id: b1ghns2saijtpp8com7i
+folder-id: b1gb5mplcv6bu0g0eolj
+compute-default-zone: ru-central1
+
+$ yc config set service-account-key authorized_key.json
+
+```
+  
+2. Устанавливаем и настраиваем [terraform](https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-quickstart)  
+   Подготавливаем конфигурацию [Terraform](https://github.com/michail-77/my-diplom-lokhmanov/tree/main/01_terraform)  
+   Перед запуском проверим конфигурацию командой terraform validate
+   ```
+user@DESKTOP-RAJIAFA:/mnt/d/Netology/Diplom/my-diplom-lokhmanov/01_terraform$ terraform validate
+Success! The configuration is valid.
+   
+user@DESKTOP-RAJIAFA:/mnt/d/Netology/Diplom/my-diplom-lokhmanov/01_terraform$ terraform plan
+data.yandex_compute_image.public-ubuntu: Reading...
+yandex_kms_symmetric_key.key-a: Refreshing state... [id=abj49aohkpme1rnhtuan]
+yandex_iam_service_account.bucket-sa: Refreshing state... [id=ajes4f4lk8olvqslma45]
+yandex_vpc_network.develop: Refreshing state... [id=enp45e57ul75o0r4503i]
+data.yandex_compute_image.public-ubuntu: Read complete after 0s [id=fd852pbtueis1q0pbt4o]
+yandex_iam_service_account_static_access_key.sa-static-key: Refreshing state... [id=ajegj8vovp501rkjvbh8]
+yandex_vpc_subnet.subnet["central1-a"]: Refreshing state... [id=e9b6ajbl7jtje54vlt9j]
+yandex_vpc_subnet.subnet["central1-b"]: Refreshing state... [id=e2lj6jl8ldcmh7067ktt]
+yandex_vpc_subnet.subnet["central1-d"]: Refreshing state... [id=fl8satavjhnb5kjj2me9]
+yandex_compute_instance.node1: Refreshing state... [id=epd20nou1lk7t81r073n]
+yandex_compute_instance.node2: Refreshing state... [id=fv4gg7pudf3dnq5laui2]
+yandex_compute_instance.master: Refreshing state... [id=fhms3m9vp9h4jekj0cih]
+local_file.ansible_inventory: Refreshing state... [id=cd00f3fb7a498abd77cd401225a1ed65752367b2]
+Note: Objects have changed outside of Terraform
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have  
+affected this plan:
+  # yandex_compute_instance.master has changed
+  ~ resource "yandex_compute_instance" "master" {
+        id                        = "fhms3m9vp9h4jekj0cih"
+        name                      = "master"
+        # (11 unchanged attributes hidden)
+      ~ network_interface {
+          - nat_ip_address     = "51.250.2.231" -> null
+            # (9 unchanged attributes hidden)
+        }
+        # (5 unchanged blocks hidden)
+    }
+  # yandex_compute_instance.node1 has changed
+  ~ resource "yandex_compute_instance" "node1" {
+        id                        = "epd20nou1lk7t81r073n"
+        name                      = "node1"
+        # (11 unchanged attributes hidden)
+
+      ~ network_interface {
+          - nat_ip_address     = "158.160.92.91" -> null
+            # (9 unchanged attributes hidden)
+        }
+        # (5 unchanged blocks hidden)
+    }
+  # yandex_compute_instance.node2 has changed
+  ~ resource "yandex_compute_instance" "node2" {
+        id                        = "fv4gg7pudf3dnq5laui2"
+        name                      = "node2"
+        # (11 unchanged attributes hidden)
+      ~ network_interface {
+          - nat_ip_address     = "158.160.167.27" -> null
+            # (9 unchanged attributes hidden)
+        }
+        # (5 unchanged blocks hidden)
+    }
+Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using
+ignore_changes, the following plan may include actions to undo or respond to these changes.
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with 
+the following symbols:
+-/+ destroy and then create replacement
+Terraform will perform the following actions:
+  # local_file.ansible_inventory must be replaced
+-/+ resource "local_file" "ansible_inventory" {
+      ~ content              = <<-EOT # forces replacement
+            all:
+              hosts:
+                master:
+          -       ansible_host: 51.250.2.231
+          +       ansible_host:
+                  ip: 10.0.1.10
+                  access_ip: 10.0.1.10
+                  ansible_user: ubuntu
+                  ansible_ssh_common_args: "-i /root/.ssh/id_rsa"
+                node1:
+          -       ansible_host: 158.160.92.91
+          +       ansible_host:
+                  ip: 10.0.2.11
+                  access_ip: 10.0.2.11
+                  ansible_user: ubuntu
+                  ansible_ssh_common_args: "-i /root/.ssh/id_rsa"
+                node2:
+          -       ansible_host: 158.160.167.27
+          +       ansible_host:
+                  ip: 10.0.3.12
+                  access_ip: 10.0.3.12
+                  ansible_user: ubuntu
+                  ansible_ssh_common_args: "-i /root/.ssh/id_rsa"
+              children:
+                kube_control_plane:
+                  hosts:
+                    master:
+                kube_node:
+                  hosts:
+                    node1:
+                    node2:
+                etcd:
+                  hosts:
+                    master:
+                k8s_cluster:
+                  children:
+                    kube_control_plane:
+                    kube_node:
+                calico_rr:
+                  hosts: {}
+        EOT
+      ~ content_base64sha256 = "fYhH4Lfa/9SPSHGF1EIKp8Lix2UVz6CTA8vzeNgg5dg=" -> (known after apply)
+      ~ content_base64sha512 = "+mTVPBhS+f+lEuYiv5LleM2n4siAZqCn7DvJm6ZVDmKaIWwgGUaCJ1nVH27SUzJDU5+nL7hBDEDxz/jqHJnk8w==" -> (known after apply)
+      ~ content_md5          = "26924e1d9ed94137f309bfd82da86c71" -> (known after apply)
+      ~ content_sha1         = "cd00f3fb7a498abd77cd401225a1ed65752367b2" -> (known after apply)
+      ~ content_sha256       = "7d8847e0b7daffd48f487185d4420aa7c2e2c76515cfa09303cbf378d820e5d8" -> (known after apply)
+      ~ content_sha512       = "fa64d53c1852f9ffa512e622bf92e578cda7e2c88066a0a7ec3bc99ba6550e629a216c201946822759d51f6ed2533243539fa72fb8410c40f1cff8ea1c99e4f3" -> (known after apply)
+      ~ id                   = "cd00f3fb7a498abd77cd401225a1ed65752367b2" -> (known after apply)
+        # (3 unchanged attributes hidden)
+    }
+Plan: 1 to add, 0 to change, 1 to destroy.
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions  
+if you run "terraform apply" now.
+   ```
+3. Выполняем команду terraform apply и у нас без дополнительных ручных действий разворачивается инфраструктура в яндекс облаке.
    ![1](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/1_вирт_машины.png)  
    ![2](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/2_сети.png)  
    ![3](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/image/3_подсети_yc.png)  
@@ -82,7 +240,14 @@
 3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок.
 
 ### Решение:  
-
+1. a. На предыдущем шаге мы подготовили инфраструктуру для разворачивания kubernetes кластера и файл [hosts.yml](https://github.com/michail-77/my-diplom-lokhmanov/blob/main/02_kubernetes/hosts.yml).
+   б. Будем использовать [Kubespray](https://kubernetes.io/docs/setup/production-environment/tools/kubespray/).
+      Для этого клонируем репозиторий [Kubespray](https://github.com/kubernetes-sigs/kubespray) к себе.
+      В папке inventory/sample есть пример с набором ролей Ansible для создания кластера, скопируем его и туда же положим файл hosts.yml.
+      Теперь перейдём в папку конфигурации Ansible и инициализуем создание кластера:
+```
+$ansible-playbook -i inventory/mycluster/hosts.yml cluster.yml 
+```
 
 ---
 ### Создание тестового приложения
